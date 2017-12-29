@@ -1,0 +1,107 @@
+<div class="panel-body">
+    <h1>
+        My Account
+    </h1>
+    <div class="row form-horizontal">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form name="myAccountForm" #myAccountForm="ngForm" *ngIf="myAccount" novalidate>
+                        <div class="form-group">
+                            <label class="col-lg-2 col-md-4 control-label">First Name*</label>
+                            <div class="col-lg-5 col-md-8">
+                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" [(ngModel)]="myAccount.firstName" #firstNameInput="ngModel" required />
+                                <div *ngIf="firstNameInput.dirty && firstNameInput.invalid">
+                                    <small class="form-text text-danger" *ngIf="firstNameInput.errors.required">
+                                        Your first name is required.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 col-md-4 control-label">Last Name*</label>
+                            <div class="col-lg-5 col-md-8">
+                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" [(ngModel)]="myAccount.lastName" #lastNameInput="ngModel" required />
+                                <div *ngIf="lastNameInput.dirty && lastNameInput.invalid">
+                                    <small class="form-text text-danger" *ngIf="lastNameInput.errors.required">
+                                        Your last name is required.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 col-md-4 control-label">Email*</label>
+                            <div class="col-lg-5 col-md-8">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" [(ngModel)]="myAccount.email" #emailInput="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required />
+                                <div *ngIf="emailInput.dirty && emailInput.invalid">
+                                    <small class="form-text text-danger" *ngIf="emailInput.errors.required">
+                                        Your email is required.
+                                    </small>
+                                    <small class="form-text text-danger" *ngIf="emailInput.errors.pattern">
+                                        Your email is invalid.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="margintop-20"></div>
+                        <div class="form-group">
+                            <label class="col-lg-2 col-md-4 control-label"></label>
+                            <div class="col-lg-5 col-md-8">
+                                <button type="submit" [disabled]="myAccountForm.form.invalid || isUpdateMyAccountSaving" class="btn btn-primary" (click)="updateMyAccount()">{{buttonTitle}}</button>
+                                <div *ngIf="isUpdateMyAccountSaving" class="progresses"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row form-horizontal">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <h1>
+                    <strong>
+                        Change Password
+                    </strong>
+                </h1>
+                <hr />
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form name="changePasswordForm" #changePasswordForm="ngForm">
+                            <div class="form-group">
+                                <label class="col-lg-2 col-md-4 control-label">New password</label>
+                                <div class="col-lg-5 col-md-8">
+                                    <input type="password" class="form-control" id="password" name="password" #passwordInput="ngModel" placeholder="New Password" [(ngModel)]="password" required />
+                                    <div *ngIf="passwordInput.dirty && passwordInput.invalid">
+                                        <small class="form-text text-danger" *ngIf="passwordInput.errors.required">
+                                            Your password is required.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 col-md-4 control-label">Confirm Password</label>
+                                <div class="col-lg-5 col-md-8">
+                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" #confirmPasswordInput="ngModel" placeholder="Confirm Password" [(ngModel)]="confirmPassword" required />
+                                    <div *ngIf="confirmPasswordInput.dirty && confirmPasswordInput.invalid">
+                                        <small class="form-text text-danger" *ngIf="confirmPasswordInput.errors.required">
+                                            Your confirmation password is required.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="margintop-20"></div>
+                            <div class="form-group">
+                                <label class="col-lg-2 col-md-4 control-label"></label>
+                                <div class="col-lg-5 col-md-8">
+                                    <button type="submit" [disabled]="changePasswordForm.form.invalid || isUpdatePasswordSaving" class="btn btn-primary" (click)="changePassword(changePasswordForm)">{{buttonTitle}}</button>
+                                    <div *ngIf="isUpdatePasswordSaving" class="progresses"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

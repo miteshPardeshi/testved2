@@ -1,0 +1,24 @@
+<header class="main-header">
+    <nav class="navbar navbar-fixed-top main-blue" role="navigation">
+        <div class="navbar-header">
+            <span class="header-logo">
+                    <a class="max-height-50 marginBottom-5" (click)="toggleNavigation()">Mitesh</a>
+            </span>
+        </div>
+        <div class="navbar-custom-menu">
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav marginright-10">
+                    <li class="dropdown user user-menu">
+                        <a>
+                            <h4>
+                                <span *ngIf="currentAccount">
+                                    Welcome {{currentAccount.firstName}} {{currentAccount.lastName}}
+                                </span>
+                            </h4>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
