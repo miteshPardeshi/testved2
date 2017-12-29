@@ -20,9 +20,9 @@ export class DashboardComponent implements OnInit {
     headerTitle: string;
     hostName: string;
     hostId: number;
-    hostInterfaceId:number;
+    hostInterfaceId: number;
     host: Host;
-    hostInter: any[]=[];
+    hostInter: any[] = [];
     hostList: Host[] = [];
     hostInterface: HostInterfaceUser;
     hostInterfacelist: HostInterface[] = [];
@@ -46,18 +46,39 @@ export class DashboardComponent implements OnInit {
     closeInterface() {
         this.viewInterface = false;
         this.hostInterfacelist = [];
-        this.hostInterface = new HostInterface();        
+        this.hostInterface = new HostInterface();
     }
 
     openInterface(host) {
         this.viewInterface = true;
         this.hostName = host.hostname;
         this.getallHostInterface(host.id);
+        this.host = new Host()
+    }
+
+    reset() {
+        this.host = new Host();
     }
 
 
-    savehost() { }
-    updatehost() { }
+    savehost() {
+        if (this.hostId) {
+            this.dashboardService.updateHost(this.host)
+                .subscribe((res: Host) =>
+                    this.onSuccessSavedHost(res), (res: Response) => this.onError(res.json()));
+        }
+        else {
+            this.dashboardService.createHost(this.host)
+                .subscribe((res: Host) =>
+                    this.onSuccessSavedHost(res), (res: Response) => this.onError(res.json()));
+        }
+    }
+
+    onSuccessSavedHost(data) {
+        this.toastsManager.success("Host Saved Successfully", "Success");
+        this.getAllhost();
+    }
+
 
     getAllhost() {
         this.dashboardService.getAllHostList()
@@ -89,12 +110,7 @@ export class DashboardComponent implements OnInit {
             }
         }
         console.log(this.host);
-
     }
-
-
-    deleteHost() { }
-
 
     getallHostInterface(hostId) {
         this.hostInterfacelist = [];
@@ -116,19 +132,32 @@ export class DashboardComponent implements OnInit {
     }
 
 
-    saveHostInterface() { }
-    updateHostInterface() { }
+    saveHostInterface() {
+        if (this.hostInterfaceId) {
+            this.dashboardService.updateHostInterface(this.hostInterface)
+                .subscribe((res: Host) =>
+                    this.onSuccessSavedInterface(res), (res: Response) => this.onError(res.json()));
+        }
+        else {
+            this.dashboardService.createHostInterface(this.hostInterface)
+                .subscribe((res: Host) =>
+                    this.onSuccessSavedInterface(res), (res: Response) => this.onError(res.json()));
+        }
+    }
 
-    getHostInterfacebyId(hostInterfaceId){
-        console.log(hostInterfaceId);
-        
+    onSuccessSavedInterface(data) {
+        this.toastsManager.success("Interface Saved Successfully", "Success");
+        this.getallHostInterface(this.hostInterfaceId);
+    }
+
+    getHostInterfacebyId(hostInterfaceId) {
         this.hostInterfaceId = hostInterfaceId;
         this.dashboardService.getHostInterfaceListByHostId(this.hostId)
-        .subscribe((res: any) =>
-            this.onSuccessgetInterfacebyId(res.json()), (res: Response) => this.onError(res.json()));
-     }
+            .subscribe((res: any) =>
+                this.onSuccessgetInterfacebyId(res.json()), (res: Response) => this.onError(res.json()));
+    }
 
-     onSuccessgetInterfacebyId(data){
+    onSuccessgetInterfacebyId(data) {
         let interfaces = data
         for (let i = 0; i < interfaces.length; i++) {
             if (this.hostId == interfaces[i].hostId) {
@@ -137,14 +166,22 @@ export class DashboardComponent implements OnInit {
         }
         this.hostInter = interfaces.hostInterfaces
         let result = this.hostInter;
-        // this.hostInterfacelist = this.hostInter
-        for(let j=0;j<this.hostInter.length;j++){
-            if(this.hostInterfaceId== this.hostInter[j].id){
+        for (let j = 0; j < this.hostInter.length; j++) {
+            if (this.hostInterfaceId == this.hostInter[j].id) {
                 this.hostInterface = this.hostInter[j]
             }
         }
-     }
+    }
 
-    deleteHostInterface(hostInterfaceId) { }
+    deleteHostInterface(hostInterfaceId) {
+        this.dashboardService.deleteHostInterface(hostInterfaceId)
+            .subscribe((res: any) =>
+                this.getallHostInterface(this.hostInterfaceId))
+    }
 
+    deleteHost(hostId) {
+        this.dashboardService.deleteHost(hostId)
+            .subscribe((res: Host) =>
+                this.getAllhost());
+    }
 }
