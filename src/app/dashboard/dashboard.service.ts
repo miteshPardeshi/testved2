@@ -31,7 +31,8 @@ export class DashboardService {
     }
 
     getAllHostList(): Observable<Response> {
-        return this.http.get('baseHostlistUrl');
+        return this.http.get('../../assets/JSONs/allhostlist.json')
+        // return this.http.get('baseHostlistUrl');
     }
 
     getHostById(id): Observable<Host> {
@@ -41,7 +42,8 @@ export class DashboardService {
     }
 
     getHostInterfaceListByHostId(hostId): Observable<Response> {
-        return this.http.get('baseHostlistUrl' + '/' + hostId);
+        return this.http.get('../../assets/JSONs/hostInterfaces.json')        
+        // return this.http.get('baseHostlistUrl' + '/' + hostId);
     }
 
     createHostInterface(hostInterface: HostInterface): Observable<HostInterface> {

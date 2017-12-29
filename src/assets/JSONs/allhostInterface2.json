@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "hostname": "www.angular.io",
+        "loopback": "192.126.123.65",
+        "hostInterface": [
+            {
+                "hostInterface": "Infir-Lab-201",
+                "interfaceIp": "134.123.456.12"
+            },
+            {
+                "hostInterface": "Infir-Lab-221",
+                "interfaceIp": "134.124.455.11"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "hostname": "www.github.com",
+        "loopback": "192.156.123.66",
+        "hostInterface": [
+            {
+                "hostInterface": "Infir-Lab-301",
+                "interfaceIp": "135.123.456.12"
+            },
+            {
+                "hostInterface": "Infir-Lab-302",
+                "interfaceIp": "135.133.455.14"
+            }
+        ]
+    }
+]
+}
+]

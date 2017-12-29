@@ -1,0 +1,62 @@
+[
+    {
+        "rider": {
+            "firstName": "Giacomo",
+            "lastName":"Guilizzani",
+            "email":"stephens1@gmail.com",
+            "phone":"(614) 252-0731",
+            "cellno":"(614) 252-0731",
+            "address1": "1490 E",
+            "äddress2":" Main St",
+            "zipcode": "43205",
+            "city": "Columbus",
+            "state": "OH"
+        },
+        "route":{
+            "name":"Linden Public Library Route"
+        },
+        "date":"Apr 2, 2014",
+        "time":"9:00 AM",
+        "status":"Requested"
+    },
+    {
+        "rider":{
+            "firstName": "Marco",
+            "lastName":"Botton",
+            "email":"stephens1@gmail.com",
+            "phone":"614-333-5555",
+            "cellno":"(614) 252-0731",
+            "address1": "1490 E",
+            "äddress2":" Main St",
+            "zipcode": "43205",
+            "city": "Columbus",
+            "state": "OH"
+        },
+        "route":{
+            "name":"Linden Public Library Route"
+        },
+        "date":"Apr 2, 2014",
+        "time":"10:00 AM",
+        "status":"Confirmed"
+    },
+    {
+        "rider":{
+            "firstName": "Mariah",
+            "lastName":"Maclachlan",
+            "email":"stephens1@gmail.com",
+            "phone":"614-333-5555",
+            "cellno":"(614) 252-0731",
+            "address1": "1490 E",
+            "äddress2":" Main St",
+            "zipcode": "43205",
+            "city": "Columbus",
+            "state": "OH"
+        },
+        "route":{
+            "name":"Linden Public Library Route"
+        },
+        "date":"Apr 2, 2014",
+        "time":"11:00 AM",
+        "status":"Requested"
+    }
+]

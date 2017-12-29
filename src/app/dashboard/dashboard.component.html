@@ -13,27 +13,37 @@
                                     <div class="form-group">
                                         <label class="col-lg-4 col-md-4 control-label">HostName<small class="mandatory"></small></label>
                                         <div class="col-lg-7 col-md-8">
-                                            <!-- <input type="text" class="form-control" name="hostName" #hostNameInput="ngModel" [(ngModel)]="network.hostName" maxlength="20"
+                                            <input type="text" class="form-control" name="hostname" #hostNameInput="ngModel" [(ngModel)]="host.hostname" pattern="/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/"
                                                 required />
+                                            <!-- <div class="text-left text-danger" *ngIf="hostNameInput.touched && hostNameInput.invalid">
+                                                <small class="form-text text-danger" *ngIf="hostNameInput.errors.pattern">
+                                                            host name is invalid.
+                                                        </small>
+                                            </div> -->
                                             <div *ngIf="hostNameInput.touched && hostNameInput.invalid">
                                                 <small class="form-text text-danger" *ngIf="hostNameInput.errors.required">
                                                     host name required
                                                 </small>
-                                            </div> -->
-                                            <input type="text" class="form-control" maxlength="20"/>
+                                            </div>
+                                            <!-- <input type="text" class="form-control" maxlength="20" /> -->
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-4 col-md-4 control-label">LoopBack<small class="mandatory"></small></label>
                                         <div class="col-lg-7 col-md-8">
-                                            <!-- <input type="text" class="form-control" name="hostName" #hostNameInput="ngModel" [(ngModel)]="network.hostName" maxlength="20"
+                                            <input type="text" class="form-control" name="loopback" #hostloopbackInput="ngModel" [(ngModel)]="host.loopback" pattern="/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/"
                                                 required />
-                                            <div *ngIf="hostNameInput.touched && hostNameInput.invalid">
-                                                <small class="form-text text-danger" *ngIf="hostNameInput.errors.required">
-                                                    host name required
-                                                </small>
+                                            <!-- <div class="text-left text-danger" *ngIf="hostloopbackInput.touched && hostloopbackInput.invalid">
+                                                <small class="form-text text-danger" *ngIf="hostloopbackInput.errors.pattern">
+                                                        loopback is invalid.
+                                                                </small>
                                             </div> -->
-                                            <input type="text" class="form-control" maxlength="20"/>
+                                            <div *ngIf="hostloopbackInput.touched && hostloopbackInput.invalid">
+                                                <small class="form-text text-danger" *ngIf="hostloopbackInput.errors.required">
+                                                    loopback required
+                                                </small>
+                                            </div>
+                                            <!-- <input type="text" class="form-control" maxlength="20" /> -->
                                         </div>
                                     </div>
                                 </div>
@@ -46,39 +56,39 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 ">
                                     <div class="col-lg-12 col-md-12 col-sm-12 pull-right">
-                                        <button type="submit" [disabled]="networkForm.form.invalid" class="btn btn-primary marginright-5 pull-right" (click)="save()">Add</button>
+                                        <button type="submit" [disabled]="networkForm.form.invalid" class="btn btn-primary marginright-5 pull-right" (click)="save()">Save</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
-                    <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="getAllHostRecords">
                         <h3>
-                            <i class="fa fa-road"></i>&nbsp;&nbsp;Routes Details
+                            Host Details
                         </h3>
                         <hr>
-                        <table class="table table-striped" [mfData]="riderRoutes" #mf="mfDataTable" [mfRowsOnPage]="pageSize" [(mfSortBy)]="sortBy"
+                        <table class="table table-striped" [mfData]="hostList" #mf="mfDataTable" [mfRowsOnPage]="pageSize" [(mfSortBy)]="sortBy"
                             [(mfSortOrder)]="sortOrder">
                             <thead>
                                 <tr>
                                     <th>
                                         <a>
                                                     <span>
-                                                        <mfDefaultSorter by="routesId">Name</mfDefaultSorter>
+                                                        <mfDefaultSorter by="id">Sr No</mfDefaultSorter>
                                                     </span>
                                                 </a>
                                     </th>
                                     <th>
                                         <a>
                                                     <span>
-                                                        <mfDefaultSorter by="stops[0]">First Stop</mfDefaultSorter>
+                                                        <mfDefaultSorter by="host">Host</mfDefaultSorter>
                                                     </span>
                                                 </a>
                                     </th>
                                     <th>
                                         <a>
                                                     <span>
-                                                        <mfDefaultSorter by="stops[stops.length - 1]">Last Stop</mfDefaultSorter>
+                                                        <mfDefaultSorter by="loopback">Loopback</mfDefaultSorter>
                                                     </span>
                                                 </a>
                                     </th>
@@ -86,14 +96,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let route of riderRoutes; let i = index">
-                                    <td data-title="Name">{{route?.routesId}}</td>
-                                    <td data-title="First Stop">{{route?.stops[0]}}</td>
-                                    <td data-title="Last Stop">{{route?.stops[1]}}</td>
+                                <tr *ngFor="let host of hostList; let i = index">
+                                    <td data-title="Name">{{host?.id}}</td>
+                                    <td data-title="Host">{{host?.hostname}}</td>
+                                    <td data-title="LoopBack">{{host?.loopback}}</td>
                                     <td>
-                                        <a title="Edit" (click)="editRiderRoute(route?.id)">
-                                                    <i class="fa fa-lg fa-pencil"></i>
+                                        <a title="Edit">
+                                                    <i class="fa fa-lg fa-pencil" (click)="getHostbyId(host?.id)"></i>
                                                 </a>&nbsp;&nbsp;&nbsp;
+                                        <a title="Delete" (click)="deleteContact(contact)"><i class="fa fa-lg fa-trash"></i></a>&nbsp;&nbsp;&nbsp;
+                                        <a title="View" (click)="openInterface(host)"><i class="fa fa-lg fa-eye"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -106,7 +118,126 @@
                                 </tr>
                             </tfoot>
                         </table>
-                    </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade show in" *ngIf="viewInterface">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Interface - {{hostName}}</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="panel-body">
+                        <form class="form-horizontal" novalidate #interfaceForm="ngForm">
+                            <div class="row col-lg-12 col-md-12 col-sm-12 m-t-xl">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-4 control-label">HostName<small class="mandatory"></small></label>
+                                            <div class="col-lg-7 col-md-8">
+                                                <input type="text" class="form-control" name="hostInterface" #hostInterfaceInput="ngModel" [(ngModel)]="hostInterface.hostInterface"
+                                                    required />
+
+                                                <div *ngIf="hostInterfaceInput.touched && hostInterfaceInput.invalid">
+                                                    <small class="form-text text-danger" *ngIf="hostInterfaceInput.errors.required">
+                                                                host Interface required
+                                                            </small>
+                                                </div>
+                                                <!-- <input type="text" class="form-control" maxlength="20" /> -->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-4 control-label">Interface Ip<small class="mandatory"></small></label>
+                                            <div class="col-lg-7 col-md-8">
+                                                <input type="text" class="form-control" name="interfaceIp" #interfaceIpInput="ngModel" [(ngModel)]="hostInterface.interfaceIp"
+                                                    required />
+                                                <div *ngIf="interfaceIpInput.touched && interfaceIpInput.invalid">
+                                                    <small class="form-text text-danger" *ngIf="interfaceIpInput.errors.required">
+                                                                Interface Ip required
+                                                            </small>
+                                                </div>
+                                                <!-- <input type="text" class="form-control" maxlength="20" /> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <hr>
+                                <div class="form-group">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 ">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 pull-right">
+                                            <button type="submit" [disabled]="interfaceForm.form.invalid" class="btn btn-primary marginright-5 pull-right" (click)="save()">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="getAllHostRecords">
+                            <h3>
+                                Host Details
+                            </h3>
+                            <hr>
+                            <table class="table table-striped" [mfData]="hostInter" #mf="mfDataTable" [mfRowsOnPage]="pageSize" [(mfSortBy)]="sortBy"
+                                [(mfSortOrder)]="sortOrder">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <a>
+                                                                <span>
+                                                                    <mfDefaultSorter by="id">Sr No</mfDefaultSorter>
+                                                                </span>
+                                                            </a>
+                                        </th>
+                                        <th>
+                                            <a>
+                                                                <span>
+                                                                    <mfDefaultSorter by="hostInterface">HostInterface</mfDefaultSorter>
+                                                                </span>
+                                                            </a>
+                                        </th>
+                                        <th>
+                                            <a>
+                                                                <span>
+                                                                    <mfDefaultSorter by="interfaceIp">Interface Ip</mfDefaultSorter>
+                                                                </span>
+                                                            </a>
+                                        </th>
+                                        <th>Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let inter of hostInter; let i = index">
+                                        <td data-title="Name">{{inter?.id}}</td>
+                                        <td data-title="Host">{{inter?.hostInterface}}</td>
+                                        <td data-title="LoopBack">{{inter?.interfaceIp}}</td>
+                                        <td>
+                                            <a title="Edit">
+                                                                <i class="fa fa-lg fa-pencil" (click)="getHostInterfacebyId(inter?.id)"></i>
+                                                            </a>&nbsp;&nbsp;&nbsp;
+                                            <a title="Delete" (click)="deleteContact(contact)"><i class="fa fa-lg fa-trash"></i></a>&nbsp;&nbsp;&nbsp;
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5">
+                                            <mfBootstrapPaginator></mfBootstrapPaginator>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" (click)="closeInterface()">Cancel</button>
                 </div>
             </div>
         </div>

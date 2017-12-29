@@ -1,0 +1,12 @@
+[
+    {
+        "id":1,
+        "hostname":"www.angular.io",
+        "loopback":"192.126.123.65"
+    },
+    {
+        "id":2,
+        "hostname":"www.github.com",
+        "loopback":"192.156.123.66"
+    }
+]

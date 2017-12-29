@@ -1,0 +1,38 @@
+[
+    {
+        "hostId": 1,
+        "hostInterfaces": [
+            {
+                "id":1,
+                "hostInterface": "Infir-Lab-201",
+                "interfaceIp": "134.123.456.12"
+            },
+            {
+
+                "id":2,
+                "hostInterface": "Infir-Lab-221",
+                "interfaceIp": "134.124.455.11"
+            },
+            {
+                "id":3,
+                "hostInterface": "Infir-Lab-225",
+                "interfaceIp": "134.154.465.18"
+            }
+        ]
+    },
+    {
+        "hostId": 2,
+        "hostInterfaces": [
+            {
+                "id":4,
+                "hostInterface": "Infir-Lab-301",
+                "interfaceIp": "135.123.456.12"
+            },
+            {
+                "id":5,
+                "hostInterface": "Infir-Lab-302",
+                "interfaceIp": "135.133.455.14"
+            }
+        ]
+    }
+]
